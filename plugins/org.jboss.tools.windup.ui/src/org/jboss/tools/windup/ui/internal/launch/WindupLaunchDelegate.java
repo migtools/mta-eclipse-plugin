@@ -268,9 +268,15 @@ public class WindupLaunchDelegate implements ILaunchConfigurationDelegate {
     		analyzeKnownLibraries = true;
     	}
     	
+    	Optional<Pair> enableDefaultRulesetsOption = configuration.getOptions().stream().filter(option -> option.getKey().equals("enable-default-rulesets")).findFirst();
+    	boolean enableDefaultRulesets = false;
+    	if (enableDefaultRulesetsOption.isPresent() && Boolean.valueOf(enableDefaultRulesetsOption.get().getValue())) {
+    		enableDefaultRulesets = true;
+    	}
+    	
     	
 //		kantraJob.cancel();
-   	 WindupLaunchDelegate.activeRunner.runKantra(cli, inputs, output, sources, targets, rules, analyzeKnownLibraries, onMessage, onComplete, onFailed);
+   	 WindupLaunchDelegate.activeRunner.runKantra(cli, inputs, output, sources, targets, rules, analyzeKnownLibraries, enableDefaultRulesets, onMessage, onComplete, onFailed);
 	}
 	
 	private MessageConsole findConsole(String name) {

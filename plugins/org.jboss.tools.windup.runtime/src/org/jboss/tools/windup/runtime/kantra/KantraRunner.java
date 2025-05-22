@@ -27,7 +27,7 @@ public class KantraRunner {
 	
 	private ExecuteWatchdog watchdog;
 	
-	public void runKantra(String cli, Set<String> inputs, String output, List<String> sources, List<String> targets, List<String> rules, boolean analyzeKnownLibraries, Consumer<String> onMessage, Consumer<Boolean> onComplete, Consumer<String> onFailed) {
+	public void runKantra(String cli, Set<String> inputs, String output, List<String> sources, List<String> targets, List<String> rules, boolean analyzeKnownLibraries, boolean enableDefaultRulesets, Consumer<String> onMessage, Consumer<Boolean> onComplete, Consumer<String> onFailed) {
 		logInfo("Begin start kantra."); //$NON-NLS-1$
 		
 		// todo: compute or parameterize from configuration
@@ -45,6 +45,12 @@ public class KantraRunner {
 		if (analyzeKnownLibraries) {
 			params.add("--analyze-known-libraries");
 		}
+		
+		if (enableDefaultRulesets) {
+			params.add("--enable-default-rulesets=true");
+        }else {
+            params.add("--enable-default-rulesets=false");
+        }
 		
 		for (String input : inputs) {
 			params.add("--input");

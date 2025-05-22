@@ -5,31 +5,82 @@
 		<type>String</type>
 		<ui-type>SELECT_MANY</ui-type>
 		<available-options>
-			<option>azure</option>
+			<option>camel</option>
+			<option>camel2</option>
 			<option>camel3</option>
+			<option>camel3.1</option>
+			<option>camel3.10</option>
+			<option>camel3.11</option>
+			<option>camel3.12</option>
+			<option>camel3.13</option>
+			<option>camel3.14</option>
+			<option>camel3.15</option>
+			<option>camel3.16</option>
+			<option>camel3.17</option>
+			<option>camel3.18</option>
+			<option>camel3.19</option>
+			<option>camel3.2</option>
+			<option>camel3.20</option>
+			<option>camel3.21</option>
+			<option>camel3.3</option>
+			<option>camel3.4</option>
+			<option>camel3.5</option>
+			<option>camel3.6</option>
+			<option>camel3.7</option>
+			<option>camel3.8</option>
+			<option>camel3.9</option>
 			<option>camel4</option>
-			<option>cloud</option>
+			<option>camel4.1</option>
+			<option>cloud-readiness</option>
+			<option>discovery</option>
 			<option>drools</option>
+			<option>drools6</option>
 			<option>eap</option>
 			<option>eap6</option>
 			<option>eap7</option>
+			<option>eap7.1</option>
 			<option>eap8</option>
 			<option>eapxp</option>
+			<option>eapxp2</option>
+			<option>eapxp3</option>
+			<option>eapxp5</option>
 			<option>fsw</option>
+			<option>fsw6</option>
 			<option>fuse</option>
+			<option>fuse6</option>
 			<option>hibernate</option>
-			<option>jakarta</option>
-			<option>java</option>
+			<option>hibernate-search</option>
+			<option>hibernate4</option>
+			<option>hibernate5</option>
+			<option>hibernate5.1</option>
+			<option>hibernate5.3</option>
+			<option>hibernate6</option>
+			<option>hibernate6.1</option>
+			<option>hibernate6.2</option>
+			<option>jakarta-ee</option>
+			<option>jakarta-ee8</option>
+			<option>jakarta-ee9</option>
+			<option>java-ee</option>
+			<option>java-ee6</option>
+			<option>java-ee7</option>
 			<option>jbpm</option>
+			<option>jbpm6</option>
+			<option>jws</option>
 			<option>jws6</option>
 			<option>linux</option>
 			<option>openjdk</option>
 			<option>openjdk11</option>
 			<option>openjdk17</option>
+			<option>openjdk18</option>
+			<option>openjdk19</option>
+			<option>openjdk20</option>
 			<option>openjdk21</option>
+			<option>openjdk7</option>
 			<option>openliberty</option>
 			<option>quarkus</option>
+			<option>quarkus3</option>
 			<option>resteasy</option>
+			<option>resteasy3</option>
 			<option>rhr</option>
 		</available-options>
 		<required>true</required>
@@ -39,57 +90,60 @@
 		<type>String</type>
 		<ui-type>SELECT_MANY</ui-type>
 		<available-options>
-			<option>agroal</option>
-			<option>amazon</option>
-			<option>apicurio</option>
-			<option>artemis</option>
-			<option>avro</option>
 			<option>camel</option>
-			<option>config</option>
+			<option>camel2</option>
+			<option>camel3</option>
 			<option>drools</option>
+			<option>drools5</option>
 			<option>eap</option>
+			<option>eap4</option>
+			<option>eap5</option>
 			<option>eap6</option>
 			<option>eap7</option>
-			<option>eap8</option>
+			<option>eap7.0</option>
+			<option>eap7.1</option>
 			<option>eapxp</option>
-			<option>elytron</option>
-			<option>flyway</option>
 			<option>glassfish</option>
-			<option>hibernate</option> 
+			<option>hibernate</option>
 			<option>hibernate-search</option>
+			<option>hibernate-search4</option>
+			<option>hibernate3.9</option>
+			<option>hibernate4</option>
+			<option>hibernate5.0</option>
+			<option>hibernate5.1</option>
 			<option>jakarta-ee</option>
+			<option>jakarta-ee7</option>
+			<option>java</option>
 			<option>java-ee</option>
-			<option>jbpm</option>
-			<option>jboss</option>
 			<option>javaee</option>
-			<option>jdbs</option>
+			<option>jbpm</option>
+			<option>jbpm5</option>
 			<option>jonas</option>
 			<option>jrun</option>
-			<option>jsonb</option>
-			<option>jsonp</option>
-			<option>kafka</option>
-			<option>keycloak</option>
-			<option>kubernetes</option>
-			<option>liquibase</option>
 			<option>log4j</option>
-			<option>logging</option>
-			<option>micrometer</option>
-			<option>narayana</option>
 			<option>openjdk</option>
 			<option>openjdk11</option>
-			<option>openshift</option>
-			<option>opentelemetry</option>
+			<option>openjdk18</option>
+			<option>openjdk19</option>
+			<option>openjdk20</option>
+			<option>openjdk21</option>
+			<option>openjdk8</option>
 			<option>oraclejdk</option>
+			<option>oraclejdk7</option>
 			<option>orion</option>
-			<option>picocli</option>
 			<option>resin</option>
 			<option>resteasy</option>
+			<option>resteasy2</option>
 			<option>rmi</option>
 			<option>rpc</option>
 			<option>seam</option>
+			<option>seam2</option>
 			<option>soa</option>
-			<option>spring</option>
-			<option>spring-boot</option>
+			<option>soa-p</option>
+			<option>soa-p5</option>
+			<option>sonic</option>
+			<option>sonicesb</option>
+			<option>springboot</option>
 			<option>thorntail</option>
 			<option>weblogic</option>
 			<option>websphere</option>
@@ -104,6 +158,12 @@
 	</option>
 	<option name="analyze-known-libraries">
 		<description>Analyze known libraries.</description>
+		<type>Boolean</type>
+	 	<ui-type>SINGLE</ui-type>
+	 	<required>false</required>
+	</option>
+	<option name="enable-default-rulesets">
+		<description>If set, default ruleset will be applied along with custom-rule. Note: Must specify rules if default rulesets are not enabled</description>
 		<type>Boolean</type>
 	 	<ui-type>SINGLE</ui-type>
 	 	<required>false</required>
