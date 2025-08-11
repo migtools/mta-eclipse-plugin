@@ -92,6 +92,50 @@
 				</plugins>
 			</build>
 		</profile>
+
+		<!-- NEW: produce a flat p2 repo suitable for GitHub Releases -->
+		<profile>
+			<id>flat-repo</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>dev.jbang</groupId>
+						<artifactId>jbang-maven-plugin</artifactId>
+						<version>0.0.7</version>
+						<executions>
+							<execution>
+								<id>flatten-p2</id>
+								<!-- run after Tycho has produced target/repository -->
+								<phase>verify</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<!-- Option A: use Fred Bricon’s public gist -->
+									<script>https://gist.github.com/fbricon/3c718d03f55c3ceba5dea570af4af5f8</script>
+									<args>
+										<!-- Pass module baseDir; script expects to find target/repository under it -->
+										<arg>${project.basedir}</arg>
+										<!-- (optional) OUT defaults to target/flat-repository
+										     If you want to be explicit, uncomment:
+										<arg>${project.build.directory}/flat-repository</arg>
+										-->
+									</args>
+									<trusts>
+										<trust>https://gist.github.com</trust>
+									</trusts>
+
+									<!-- Option B (offline-friendly):
+									<script>${project.basedir}/jbang/repoflattener.java</script>
+									<args><arg>${project.build.directory}/repository</arg></args>
+									-->
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 
 </project>

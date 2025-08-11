@@ -1,0 +1,35 @@
+name: Build and Publish P2 Site
+on:
+  push:
+    branches: [ main ]
+    tags: [ "*.*.*" ]   # tag like 7.2.1
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "11"
+          cache: maven
+      - name: Build reactor
+        run: mvn -B -U -DskipTests verify
+      - name: Flatten p2 site
+        run: mvn -f site/pom.xml -B -U verify -Pflat-repo
+      - name: Upload 'latest' release (main branch)
+        if: github.ref == 'refs/heads/main'
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: latest
+          prerelease: true
+          title: Development Build
+          files: site/target/flat-repository/*
+      - name: Upload tagged release (versioned)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: site/target/flat-repository/*
+
+
