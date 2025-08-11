@@ -25,8 +25,13 @@
         <windup.version>6.3.0.Final</windup.version>
         <tycho.scmUrl>scm:git:https://github.com/windup/windup-eclipse-plugin.git</tycho.scmUrl>
         <!-- exclude variables that are allowed to have SNAPSHOT versions
-        See https://github.com/jbosstools/jbosstools-devdoc/blob/master/source/build_checks.adoc#enforce-no-snapshots-final -->
+             See https://github.com/jbosstools/jbosstools-devdoc/blob/master/source/build_checks.adoc#enforce-no-snapshots-final -->
         <enforceExcludePatternExtras>|windup.version</enforceExcludePatternExtras>
+
+        <!-- ===== DEFAULTS FOR P2 SITES (so CI doesn't need -D props) ===== -->
+        <jbosstools-base-site>https://download.jboss.org/jbosstools/photon/snapshots/builds/jbosstools-base_master/latest/all/repo</jbosstools-base-site>
+        <jbosstools-central-site>https://download.jboss.org/jbosstools/photon/snapshots/builds/jbosstools-central_master/latest/all/repo</jbosstools-central-site>
+        <!-- If you later prefer stable lines, swap these for stable URLs (e.g. updates/stable/4.30.0.Final/) -->
     </properties>
     
     <dependencyManagement>
@@ -75,11 +80,9 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-
-
         </dependencies>
     </dependencyManagement>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -111,8 +114,6 @@
                     <version>2.8</version>
                 </plugin>
 
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven
-                    build itself. -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
@@ -130,7 +131,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
@@ -141,21 +142,15 @@
         </pluginManagement>
     </build>
     <repositories>
-	    <repository>
-		<id>jbosstools-base</id>
-		<layout>p2</layout>
-		<url>${jbosstools-base-site}</url>
-	    </repository>
-	    <!-- <repository>
-		<id>jbosstools-forge</id>
-		<layout>p2</layout>
-		<url>${jbosstools-forge-site}</url>
-	    </repository> -->
-	    
-		<repository>
-			<id>jbosstools-central</id>
-			<layout>p2</layout>
-			<url>${jbosstools-central-site}</url>
-		</repository>
+        <repository>
+            <id>jbosstools-base</id>
+            <layout>p2</layout>
+            <url>${jbosstools-base-site}</url>
+        </repository>
+        <repository>
+            <id>jbosstools-central</id>
+            <layout>p2</layout>
+            <url>${jbosstools-central-site}</url>
+        </repository>
     </repositories>
 </project>

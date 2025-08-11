@@ -1,23 +1,83 @@
-name: Build and Publish P2 Site
+name: Build & Publish P2 Site
+
 on:
+  pull_request:
   push:
-    branches: [ main ]
+    branches: [ master ]
     tags: [ "*.*.*" ]   # tag like 7.2.1
+
+permissions:
+  contents: write   # needed to create/update Releases
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # Use Java 17 for Tycho/TP
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: "11"
+          java-version: '17'
           cache: maven
-      - name: Build reactor
-        run: mvn -B -U -DskipTests verify
-      - name: Flatten p2 site
-        run: mvn -f site/pom.xml -B -U verify -Pflat-repo
-      - name: Upload 'latest' release (main branch)
+
+      # Write settings.xml with the two properties (and keep your JBoss repo if you want)
+      - name: Write settings.xml with site props
+        shell: bash
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml <<'XML'
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+            <profiles>
+              <!-- Maven repos for parent POM, etc. (optional but harmless) -->
+              <profile>
+                <id>jboss</id>
+                <repositories>
+                  <repository>
+                    <id>jboss-public-repository-group</id>
+                    <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                  </repository>
+                </repositories>
+              </profile>
+
+              <!-- Provide p2 site URLs as properties for Tycho builds -->
+              <profile>
+                <id>jbt-sites</id>
+                <properties>
+                  <jbosstools-base-site>https://download.jboss.org/jbosstools/photon/snapshots/builds/jbosstools-base_master/latest/all/repo</jbosstools-base-site>
+                  <jbosstools-central-site>https://download.jboss.org/jbosstools/photon/snapshots/builds/jbosstools-central_master/latest/all/repo</jbosstools-central-site>
+                </properties>
+                <activation>
+                  <activeByDefault>true</activeByDefault>
+                </activation>
+              </profile>
+            </profiles>
+
+            <activeProfiles>
+              <activeProfile>jboss</activeProfile>
+              <activeProfile>jbt-sites</activeProfile>
+            </activeProfiles>
+          </settings>
+          XML
+
+      # (Optional) sanity check the properties are visible to Maven
+      - name: Show injected props
+        run: |
+          mvn -q help:evaluate -DforceStdout -Dexpression=jbosstools-base-site
+          mvn -q help:evaluate -DforceStdout -Dexpression=jbosstools-central-site
+
+      # Build whole reactor so the feature IU is present; flat-repo runs in site
+      - name: Build & flatten
+        run: mvn -B -U -DskipTests clean verify -Pflat-repo
+
+      # Rolling "latest" release (will not run on ci-update, only on main)
+      - name: Upload 'latest' release
         if: github.ref == 'refs/heads/main'
         uses: marvinpinto/action-automatic-releases@latest
         with:
@@ -26,10 +86,11 @@ jobs:
           prerelease: true
           title: Development Build
           files: site/target/flat-repository/*
-      - name: Upload tagged release (versioned)
+
+      # Versioned release on tags
+      - name: Upload tagged release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           files: site/target/flat-repository/*
-
-
