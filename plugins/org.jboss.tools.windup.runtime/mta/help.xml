@@ -5,6 +5,8 @@
 		<type>String</type>
 		<ui-type>SELECT_MANY</ui-type>
 		<available-options>
+			<option>azure-appservice</option>
+			<option>azure-spring-apps</option>
 			<option>camel</option>
 			<option>camel2</option>
 			<option>camel3</option>
@@ -50,6 +52,7 @@
 			<option>fuse6</option>
 			<option>hibernate</option>
 			<option>hibernate-search</option>
+			<option>hibernate-search5</option>
 			<option>hibernate4</option>
 			<option>hibernate5</option>
 			<option>hibernate5.1</option>
@@ -82,6 +85,7 @@
 			<option>resteasy</option>
 			<option>resteasy3</option>
 			<option>rhr</option>
+			<option>spring6</option>
 		</available-options>
 		<required>true</required>
 	</option>
@@ -143,6 +147,8 @@
 			<option>soa-p5</option>
 			<option>sonic</option>
 			<option>sonicesb</option>
+			<option>spring</option>
+			<option>spring5</option>
 			<option>springboot</option>
 			<option>thorntail</option>
 			<option>weblogic</option>
